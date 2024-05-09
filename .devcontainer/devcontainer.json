@@ -1,6 +1,7 @@
 {
     "name": "ROS-noetic",
     "remoteUser": "tempuser",
+    "workspaceFolder": "/home/tempuser/ros_ws",
     "containerEnv": {
         "SHELL": "/bin/bash"
     },
@@ -14,7 +15,7 @@
         "ghcr.io/devcontainers-contrib/features/bash-command:1": {},
         "ghcr.io/devcontainers/features/common-utils:2": {
             "upgradePackages": false,
-            "username": "roboticsetf"
+            "username": "tempuser"
         },
         "ghcr.io/stuartleeks/dev-container-features/shell-history:0": {
             "version": "latest"
@@ -53,7 +54,7 @@
         "-v",
         "/tmp/.X11-unix:/tmp/.X11-unix:rw",
         "-v",
-        "${env:HOME}/.ssh:/home/roboticsETF/.ssh:ro",
+        "${env:HOME}/.ssh:/home/tempuser/.ssh:ro",
         "-v",
         "/var/run/dbus:/var/run/dbus:rw",
         "-v",

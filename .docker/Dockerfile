@@ -18,6 +18,7 @@ RUN apt-get update \
     python3-colcon-common-extensions \
     python3-pip \
     python3-rosdep \
+    ros-${ROS_DISTRO}-joint-trajectory-controller \
     && rm -rf /var/lib/apt/lists/*
 
 ARG USERNAME=tempuser
@@ -25,7 +26,7 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 ARG TEMP_SRC_PATH="/home/tempuser"
-COPY --chown=${USERNAME}:${USERNAME} . ${TEMP_SRC_PATH}
+COPY --chown=${USERNAME}:${USERNAME} . ${TEMP_SRC_PATH}/ros_ws/src/robot_arm
 
 FROM ros-base AS ros-dev-container
 
@@ -46,5 +47,19 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
 RUN chown -R $USERNAME:$USERNAME $TEMP_SRC_PATH
+
+ENV ROS_DISTRO noetic
+ENV ROS_WS /home/tempuser/ros_ws
+
+RUN mkdir -p $ROS_WS/src
+
+WORKDIR $ROS_WS
+
+RUN apt-get update && \
+    rosdep update && \
+    rosdep install --from-paths src --ignore-src -r -y && \
+    rm -rf /var/lib/apt/lists/*
+
+CMD ["bash"]
 
 USER $USERNAME
