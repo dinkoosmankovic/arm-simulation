@@ -49,7 +49,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
 RUN chown -R $USERNAME:$USERNAME $TEMP_SRC_PATH
 
 ENV ROS_DISTRO noetic
-ENV ROS_WS /home/tempuser/ros_ws
+ENV ROS_WS /workspaces/
 
 RUN mkdir -p $ROS_WS/src
 
