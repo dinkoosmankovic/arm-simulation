@@ -49,19 +49,19 @@ def test_move_robot():
   start_pt.time_from_start = rospy.Duration(0.0)
 
   point_1 = JointTrajectoryPoint()
-  point_1.positions = [math.pi / 4, 1, 0, 0, 0]
+  point_1.positions = [1, math.pi/8, 0, 0, 0]
   point_1.velocities = [0, 0, 0, 0, 0]
   point_1.time_from_start = rospy.Duration(3.0)
 
   point_2 = JointTrajectoryPoint()
-  point_2.positions = [math.pi / 4, 1, 1, 0, 0]
+  point_2.positions = [-1, math.pi/8, math.pi/8, 0, 0]
   point_2.velocities = [0, 0, 0, 0, 0]
-  point_2.time_from_start = rospy.Duration(6.0)
+  point_2.time_from_start = rospy.Duration(8.0)
 
   point_3 = JointTrajectoryPoint()
   point_3.positions = [0, 0, 0, 0, 0]
   point_3.velocities = [0, 0, 0, 0, 0]
-  point_3.time_from_start = rospy.Duration(9.0)
+  point_3.time_from_start = rospy.Duration(10.0)
 
   traj =  JointTrajectory(joint_names=joint_names, points=[start_pt, point_1, point_2, point_3])
   pub = rospy.Publisher('/robot_arm/command', JointTrajectory, queue_size=10)

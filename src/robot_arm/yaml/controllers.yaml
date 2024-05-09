@@ -8,7 +8,7 @@ robot_arm:
     - wrist_joint_04
   gains:
     arm_base_to_base:
-      p: 900
+      p: 18000
       d: 10
       i: 2.5
       i_clamp: 0
