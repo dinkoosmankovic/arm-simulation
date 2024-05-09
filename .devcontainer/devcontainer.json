@@ -1,7 +1,6 @@
 {
     "name": "ROS-noetic",
     "remoteUser": "tempuser",
-    "workspaceFolder": "/home/tempuser/ros_ws",
     "containerEnv": {
         "SHELL": "/bin/bash"
     },
@@ -10,7 +9,6 @@
         "dockerfile": "../.docker/Dockerfile",
         "target": "ros-dev-container"
     },
-    // Features to add to the dev container. More info: https://containers.dev/features.
     "features": {
         "ghcr.io/devcontainers-contrib/features/bash-command:1": {},
         "ghcr.io/devcontainers/features/common-utils:2": {
