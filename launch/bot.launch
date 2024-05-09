@@ -1,6 +1,8 @@
 <launch>
 	<param name="robot_description" textfile="$(find robot_arm)/urdf/mybot.urdf"/>
-	<include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<param name="verbose" value="true" />
+	</include>
 
 	<arg name="gui" default="true"/>
 

@@ -125,11 +125,13 @@
 			</geometry>
 		</collision>
 	</link>
-	<joint name="wrist" type="continuous">
+	<joint name="wrist" type="revolute">
 		<axis xyz="0 1 0"/>
 		<parent link="lower_arm"/>
 		<child link="hand"/>
 		<origin rpy="0 0 0" xyz="0.0 0.0 0.425"/>
+		<limit lower="-2.0" upper="2.0" effort="100" velocity="1"/>
+		<dynamics damping="0.1"/>
 	</joint>
 	<link name="left_gripper_base">
 		<inertial>
@@ -148,6 +150,9 @@
 			</geometry>
 		</collision>
 	</link>
+	<link name="ft_sensor"/>
+
+
 	<joint name="l_g_base" type="revolute">
 		<axis xyz="1 0 0"/>
 		<limit velocity="1.0" effort="30.0" lower="0" upper="0.5236"/>
@@ -224,6 +229,12 @@
 		<child link="right_gripper_finger"/>
 	</joint>
 
+	<joint name="ft_sensor_joint" type="fixed">
+		<parent link="hand"/>
+		<child link="ft_sensor"/>
+		<origin xyz="0 0 0.05" rpy="0 0 0"/>
+	</joint>
+
 	<transmission name="tran0">
 		<type>transmission_interface/SimpleTransmission</type>
 		<joint name="hip">
@@ -293,4 +304,15 @@
 			<jointName>hip, shoulder, elbow, wrist</jointName>
 		</plugin>
 	</gazebo>
+
+	<gazebo reference="ft_sensor">
+		<plugin name="gazebo_ros_ft_sensor" filename="libgazebo_ros_ft_sensor.so">
+			<alwaysOn>true</alwaysOn>
+			<updateRate>100</updateRate>
+			<bodyName>ft_sensor</bodyName>
+			<topicName>ft_sensor</topicName>
+			<gaussianNoise>0.001</gaussianNoise>
+			<frameId>hand</frameId>
+		</plugin>
+  </gazebo>
 </robot>
