@@ -1,29 +1,6 @@
 <?xml version="1.0" ?>
 <robot name="robot_arm">
-	<material name="black">
-		<color rgba="0.0 0.0 0.0 1.0" />
-	</material>
-	<material name="blue">
-		<color rgba="0 0 0.95 1.0" />
-	</material>
-	<material name="green">
-		<color rgba="0.0 0.8 0.0 1.0" />
-	</material>
-	<material name="grey">
-		<color rgba="0.2 0.2 0.2 1.0" />
-	</material>
-	<material name="orange">
-		<color rgba="1.0 0.423529411765 0.0392156862745 1.0" />
-	</material>
-	<material name="brown">
-		<color rgba="0.870588235294 0.811764705882 0.764705882353 1.0" />
-	</material>
-	<material name="red">
-		<color rgba="0.80078125 0.12890625 0.1328125 1.0" />
-	</material>
-	<material name="white">
-		<color rgba="1.0 1.0 1.0 1.0" />
-	</material>
+	
 	<gazebo reference="base_link">
 		<material>Gazebo/Blue</material>
 	</gazebo>
@@ -39,6 +16,20 @@
 	<gazebo reference="arm_link_03">
 		<material>Gazebo/Black</material>
 	</gazebo>
+	<gazebo reference="wrist_link_01">
+		<material>Gazebo/Red</material>
+	</gazebo>
+	<gazebo reference="wrist_link_02">
+		<material>Gazebo/Red</material>
+	</gazebo>
+	<gazebo reference="wrist_link_03">
+		<material>Gazebo/Red</material>
+	</gazebo>
+	<gazebo reference="wrist_link_04">
+		<material>Gazebo/Red</material>
+	</gazebo>
+
+	<!-- Set ft_sensor to joint -->
 	<gazebo reference="arm_joint_02">
 		<provideFeedback>true</provideFeedback>
 	</gazebo>
@@ -75,7 +66,6 @@
 			<geometry>
 				<cylinder radius="0.5" length="0.07" />
 			</geometry>
-			<material name="blue" />
 		</visual>
 	</link>
 	<joint name="base_joint" type="fixed">
@@ -101,7 +91,6 @@
 			<geometry>
 				<cylinder radius="0.1" length="0.05" />
 			</geometry>
-			<material name="red" />
 		</visual>
 	</link>
 	<joint name="arm_base_to_base" type="revolute">
@@ -129,7 +118,6 @@
 			<geometry>
 				<box size="0.04 0.04 0.8" />
 			</geometry>
-			<material name="red" />
 		</visual>
 	</link>
 	<joint name="arm_joint_01" type="revolute">
@@ -157,7 +145,6 @@
 			<geometry>
 				<box size="0.04 0.04 0.8" />
 			</geometry>
-			<material name="red" />
 		</visual>
 	</link>
 	<joint name="arm_joint_02" type="revolute">
@@ -185,7 +172,6 @@
 			<geometry>
 				<cylinder length="0.05" radius="0.01" />
 			</geometry>
-			<material name="white" />
 		</visual>
 	</link>
 	<joint name="wrist_joint_01" type="revolute">
@@ -213,7 +199,6 @@
 			<geometry>
 				<cylinder length="0.1" radius="0.01" />
 			</geometry>
-			<material name="white" />
 		</visual>
 	</link>
 	<joint name="wrist_joint_02" type="fixed">
@@ -240,7 +225,6 @@
 			<geometry>
 				<cylinder length="0.075" radius="0.01" />
 			</geometry>
-			<material name="white" />
 		</visual>
 	</link>
 	<joint name="wrist_joint_03" type="fixed">
@@ -267,7 +251,6 @@
 			<geometry>
 				<cylinder length="0.1" radius="0.01" />
 			</geometry>
-			<material name="white" />
 		</visual>
 	</link>
 	<joint name="wrist_joint_04" type="revolute">
