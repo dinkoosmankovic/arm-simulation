@@ -6,7 +6,7 @@ This is a sample ROS1 project for controlling a robot arm using gazebo ros contr
 
 ## Starting
 
-Open in VSCode and use devcontainer (F1 -> Rebuild and Reopen in Container)
+Open in VSCode and use devcontainer (F1 -> Rebuild and Reopen in Container). Before this, prepare the usual devcontainer environment with VSCode and Docker.
 
 Wait for the devconatainer to start. Open another terminal in VSCode and build the project using:
 ```
