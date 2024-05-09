@@ -1,60 +1,48 @@
+#!/usr/bin/env python
+# license removed for brevity
 import rospy
-from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
+from std_msgs.msg import String
+from control_msgs.msg import JointTrajectoryControllerState
+from control_msgs.msg import FollowJointTrajectoryActionGoal
+from trajectory_msgs.msg import JointTrajectoryPoint
+import math
+import numpy as np
 
 
-def move_arm():
-    pub = rospy.Publisher("/arm_controller/command", JointTrajectory, queue_size=1)
-    rospy.init_node("arm_mover")
+def talker():
+    rospy.loginfo('starting the talker node')
+    rospy.init_node('talker', anonymous=True)
+    rate = rospy.Rate(10) # 10hz
+    
 
-    joint_names = ["arm_base_to_base" ,\
-                   "arm_joint_01", \
-                   "arm_joint_02", \
-                   "wrist_joint_01", \
-                   "wrist_joint_04"]
-
-    # Replace with desired target positions for each joint
-    target_positions_1, t_1 = [1.0, 0.0, 0.0, 0.0, 0.0], 1.0
-    target_positions_2, t_2 = [1.0, 1.0, 0.0, 0.0, 0.0], 2.0
-    target_positions_3, t_3 = [1.0, 1.0, 1.0, 0.0, 0.0], 3.0
-
-    rate = rospy.Rate(10)  # 10 Hz
-
-    # Create a trajectory message
-    trajectory = JointTrajectory()
-    trajectory.joint_names = joint_names
-
-    # Define a single point trajectory
+    pub= rospy.Publisher('/robot_arm/follow_joint_trajectory/goal', FollowJointTrajectoryActionGoal, queue_size=10)
+    
+    command = FollowJointTrajectoryActionGoal()
+    command.header.stamp = rospy.Time.now()
+    command.goal.trajectory.joint_names = ['arm_base_to_base', 'arm_joint_01', 'arm_joint_02', 'wrist_joint_01', 'wrist_joint_04']
     point_1 = JointTrajectoryPoint()
-    point_1.positions = target_positions_1
-    point_1.velocities = []
-    point_1.accelerations = []
-    point_1.effort = []
-    point_1.time_from_start = rospy.Duration(t_1)
-
+    point_1.positions=[0, 0, 0, 0, 0]
+    point_1.velocities=[0, 0, 1.5, 0, 0] 
+    point_1.time_from_start = rospy.Duration(5)
+    command.goal.trajectory.points.append(point_1)
+    
     point_2 = JointTrajectoryPoint()
-    point_2.positions = target_positions_2
-    point_2.velocities = []
-    point_2.accelerations = []
-    point_2.effort = []
-    point_2.time_from_start = rospy.Duration(t_2)
-
-    point_3 = JointTrajectoryPoint()
-    point_3.positions = target_positions_3
-    point_3.velocities = []
-    point_3.accelerations = []
-    point_3.effort = []
-    point_3.time_from_start = rospy.Duration(t_3)
-
-    trajectory.points.append(point_1)
-    trajectory.points.append(point_2)
-    trajectory.points.append(point_3)
-
-    while not rospy.is_shutdown():
-        # Publish the trajectory
-        pub.publish(trajectory)
-        rate.sleep()
+    point_2.positions=[0, 0, math.pi/2, 0, 0]
+    point_2.velocities=[0, 0, 1.5, 0, 0] 
+    point_2.time_from_start = rospy.Duration(10)
+    command.goal.trajectory.points.append(point_2)
 
 
-if __name__ == "__main__":
-    move_arm()
-    rospy.spin()
+    pub.publish(command)
+    rospy.loginfo('=====send command %r', command.goal.trajectory)
+
+    rate.sleep()
+
+	
+
+if __name__ == '__main__':
+    try:
+        talker()
+
+    except rospy.ROSInterruptException:
+        pass

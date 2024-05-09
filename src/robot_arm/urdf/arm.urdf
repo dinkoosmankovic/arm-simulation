@@ -51,20 +51,19 @@
 		</plugin>
 	</gazebo>
 	<gazebo>
-		<material name="blue" />
 		<plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
-			<robotNamespace>robot_arm</robotNamespace>
+			<robotNamespace>/</robotNamespace>
 			<robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-			<legacyModeNS>true</legacyModeNS>
 		</plugin>
 	</gazebo>
+	<link name="base" />
 	<link name="base_link">
 		<!-- pose and inertial -->
 		<pose>0 0 0.1 0 0 0</pose>
 		<inertial>
 			<mass value="5" />
 			<origin rpy="0 0 0" xyz="0 0 0.1" />
-			<inertia ixx="0.0395416666667" ixy="0" ixz="0" iyy="0.106208333333" iyz="0" izz="0.106208333333" />
+			<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0" izz="1.0" />
 		</inertial>
 		<collision name="collision_chassis">
 			<geometry>
@@ -79,12 +78,17 @@
 			<material name="blue" />
 		</visual>
 	</link>
+	<joint name="base_joint" type="fixed">
+		<parent link="base" />
+		<child link="base_link" />
+	</joint>
+	
 	<!--arm definition -->
 	<link name="arm_base_link">
 		<inertial>
 			<mass value="0.1" />
 			<origin rpy="0 0 0" xyz="0 0 0" />
-			<inertia ixx="0.0000416666667" ixy="0" ixz="0" iyy="0.0000416666667" iyz="0" izz="0.0000416666667" />
+			<inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
 		</inertial>
 		<collision>
 			<origin rpy="0 0 0" xyz="0 0 0" />
@@ -112,7 +116,7 @@
 		<inertial>
 			<mass value="0.025" />
 			<origin rpy="0 0 0" xyz="0 0 0.4" />
-			<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225" />
+			<inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
 		</inertial>
 		<collision>
 			<origin rpy="0 0 0" xyz="0 0 0.4" />
@@ -140,7 +144,7 @@
 		<inertial>
 			<mass value="0.025" />
 			<origin rpy="0 0 0" xyz="0 0 0.38" />
-			<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225" />
+			<inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
 		</inertial>
 		<collision>
 			<origin rpy="0 0 0" xyz="0 0 0.38" />
@@ -168,7 +172,7 @@
 		<inertial>
 			<mass value="0.002" />
 			<origin rpy="0 0 0" xyz="0 0 0" />
-			<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225" />
+			<inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
 		</inertial>
 		<collision>
 			<origin rpy="0 0 0" xyz="0 0 0" />
@@ -196,7 +200,7 @@
 		<inertial>
 			<mass value="0.005" />
 			<origin rpy="0 1.57 0" xyz="-0.05 0 0" />
-			<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225" />
+			<inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
 		</inertial>
 		<collision>
 			<origin rpy="0 1.57 0" xyz="-0.05 0 0" />
@@ -223,7 +227,7 @@
 		<inertial>
 			<mass value="0.002" />
 			<origin rpy="0 0 0" xyz="0 0 0.035" />
-			<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225" />
+			<inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
 		</inertial>
 		<collision>
 			<origin rpy="0 0 0" xyz="0 0 0.035" />
@@ -250,7 +254,7 @@
 		<inertial>
 			<mass value="0.005" />
 			<origin rpy="0 -1.57 0" xyz="-0.05 0 0" />
-			<inertia ixx="0.000010279" ixy="0" ixz="0" iyy="0.000010279" iyz="0" izz="0.000007225" />
+			<inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0" />
 		</inertial>
 		<collision>
 			<origin rpy="0 -1.57 0" xyz="-0.05 0 0" />
@@ -273,33 +277,7 @@
 		<parent link="wrist_link_03" />
 		<child link="wrist_link_04" />
 	</joint>
-	<joint name="camera_joint" type="fixed">
-		<axis xyz="0 1 0" />
-		<origin rpy="0 0 1.57" xyz="-0.1 0.03 0" />
-		<parent link="wrist_link_04" />
-		<child link="camera_link" />
-	</joint>
-	<link name="camera_link">
-		<collision>
-			<origin rpy="0 0 0" xyz="0 0 0" />
-			<geometry>
-				<box size="0.05 0.05 0.05" />
-			</geometry>
-		</collision>
-		<visual>
-			<origin rpy="0 0 0" xyz="0 0 0" />
-			<geometry>
-				<box size="0.05 0.05 0.05" />
-			</geometry>
-			<material name="blue" />
-		</visual>
-		<inertial>
-			<mass value="1e-5" />
-			<origin rpy="0 0 0" xyz="0 0 0" />
-			<inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
-		</inertial>
-	</link>
-	<transmission name="arm_joint_00_trans">
+	<!--<transmission name="arm_joint_00_trans">
 		<type>transmission_interface/SimpleTransmission</type>
 		<joint name="arm_base_to_base">
 			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -348,7 +326,7 @@
 			<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
 			<mechanicalInterface>1</mechanicalInterface>
 		</actuator>
-	</transmission>
+	</transmission>-->
 	<transmission name="trans_arm_base_to_base">
 		<type>transmission_interface/SimpleTransmission</type>
 		<joint name="arm_base_to_base">
@@ -399,9 +377,4 @@
 			<mechanicalReduction>1</mechanicalReduction>
 		</actuator>
 	</transmission>
-	<gazebo>
-		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-			<robotNamespace>/</robotNamespace>
-		</plugin>
-	</gazebo>
 </robot>
