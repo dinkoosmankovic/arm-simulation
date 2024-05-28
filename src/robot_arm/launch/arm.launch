@@ -1,5 +1,5 @@
 <launch>
-	<param name="robot_description" textfile="/workspaces/robot_arm/src/robot_arm/urdf/arm.urdf"/>
+	<param name="robot_description" textfile="/workspaces/arm-simulation/src/robot_arm/urdf/arm.urdf"/>
 	<include file="$(find gazebo_ros)/launch/empty_world.launch">
 		<param name="verbose" value="true" />
 	</include>
